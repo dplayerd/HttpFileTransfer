@@ -15,6 +15,9 @@ namespace FileReceiver.Models
         /// <summary> 辨識用文字 </summary>
         public string Key { get; set; } = string.Empty;
 
+        /// <summary> 是否已被接受 </summary>
+        public bool IsAccepted { get; set; } 
+
         /// <summary> 檔案總數 </summary>
         public int TotalRecords { get { return (this.Payloads == null) ? 0 : this.Payloads.Count; } }
 

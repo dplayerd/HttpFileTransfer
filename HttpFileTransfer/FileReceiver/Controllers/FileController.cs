@@ -32,29 +32,31 @@ namespace FileReceiver.Controllers
                 ReceivedFileCollection collection = new ReceivedFileCollection();
 
 
-                // 取得 Post 上來的文字內容
+                // record the text info of post
                 collection.Key = provider.FormData["Key"];
 
 
-                // 取得 Post 上來的檔案內容
+                // record the file info of post
                 foreach (MultipartFileData fileData in provider.FileData)
                 {
                     var filePath = fileData.Headers.ContentDisposition.FileName.Trim('\"');
 
 
-                    // 加入回傳用的元件
+                    // Add reply container
                     collection.Payloads.Add(new ReceivedFile() { ContentType = fileData.Headers.ContentType.MediaType, Name = filePath });
                     
 
-                    // 搬移檔案
+                    // Move file
                     string saveFileName = Path.GetFileName(filePath);
 
                     string sourceFilePath = fileData.LocalFileName;
                     string uploadFilePath = Path.Combine(ConfigHelper.SaveToFolderPath, saveFileName);
 
-                    
                     FileHelper.Move(sourceFilePath, uploadFilePath, true);
                 }
+
+
+                collection.IsAccepted = true;
 
                 return this.Ok(collection);
             }
