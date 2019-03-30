@@ -328,3 +328,5 @@ ASALocalRun/
 
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
+/HttpFileTransfer/FileReceiver/App_Data/temp
+/HttpFileTransfer/FileReceiver/App_Data/Uploads
