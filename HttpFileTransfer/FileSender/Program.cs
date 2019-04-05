@@ -7,7 +7,7 @@ namespace FileSender
     {
         static void Main(string[] args)
         {
-            string apiUrl =ConfigurationManager.AppSettings["destUrl"];
+            string apiUrl = ConfigurationManager.AppSettings["destUrl"];
             string siteUrl = ConfigurationManager.AppSettings["siteUrl"];
 
             var uploadList = FileHelper.GetUploadFiles();

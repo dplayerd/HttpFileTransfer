@@ -44,10 +44,11 @@ namespace FileReceiver.Controllers
 
                     // Add reply container
                     collection.Payloads.Add(new ReceivedFile() { ContentType = fileData.Headers.ContentType.MediaType, Name = filePath });
-                    
+
 
                     // Move file
-                    string saveFileName = Path.GetFileName(filePath);
+                    string saveFileName = this.GetSaveFileName(filePath, collection.Key);
+
 
                     string sourceFilePath = fileData.LocalFileName;
                     string uploadFilePath = Path.Combine(ConfigHelper.SaveToFolderPath, saveFileName);
@@ -67,6 +68,20 @@ namespace FileReceiver.Controllers
                     Content = new StringContent(e.Message)
                 });
             }
+        }
+
+        private string GetSaveFileName(string filePath, string key)
+        {
+            string fileExt = Path.GetExtension(filePath);
+            string fileName = Path.GetFileName(filePath);
+            
+            string cDate = DateTime.Now.ToString("yyyyMMddHHmmss");
+
+            string saveFileName =
+                $"{Path.GetFileNameWithoutExtension(filePath)}_{key}_{cDate}{fileExt}";
+
+
+            return saveFileName;
         }
     }
 }
