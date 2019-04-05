@@ -15,9 +15,12 @@ namespace FileSender.Helpers
         /// <returns></returns>
         public static IEnumerable<UploadFileInfo> GetUploadFiles()
         {
-            string sourceFolder = ConfigurationManager.AppSettings["sourceFolder"];
+            var config = ConfigReader.GetConfig();
 
-            var filePathes = Directory.GetFiles(sourceFolder);
+            if (!Directory.Exists(config.FileFolderPath))
+                yield break;
+
+            var filePathes = Directory.GetFiles(config.FileFolderPath);
 
             foreach (var filePath in filePathes)
             {
@@ -27,7 +30,7 @@ namespace FileSender.Helpers
                 obj.FileContent = File.ReadAllBytes(filePath);
 
                 // this key will be contained in reply
-                obj.PostData.Add("Key", Guid.NewGuid().ToString());
+                obj.PostData.Add("Key", config.Key);
 
                 yield return obj;
             }

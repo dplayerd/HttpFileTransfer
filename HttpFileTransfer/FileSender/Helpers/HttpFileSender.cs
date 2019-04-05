@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -14,10 +15,10 @@ namespace FileSender.Helpers
     {
         private static HttpClient _httpClient;
 
-        internal HttpFileSender(string SiteUrl)
+        internal HttpFileSender(string siteUrl)
         {
             _httpClient = new HttpClient();
-            _httpClient.BaseAddress = new Uri(SiteUrl);
+            _httpClient.BaseAddress = new Uri(siteUrl);
         }
 
 
